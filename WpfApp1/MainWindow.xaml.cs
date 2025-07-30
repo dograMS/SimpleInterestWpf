@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.ViewModel;
 
 namespace WpfApp1
 {
@@ -23,41 +24,11 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            MainWindowViewModel vm = new MainWindowViewModel();
+            DataContext = vm;
         }
 
-        private void OnBtnClear(object sender, RoutedEventArgs e)
-        {
-            tb_principle.Text = "";
-            tb_interest_rate.Text = "";
-            tb_no_year.Text = "";
-
-            lb_interest_amount.Content = "0.0";
-            lb_total_amount.Content = "0.0";
-        }
-
-        private void OnBtnCalc(object sender, RoutedEventArgs e)
-        {
-            double principle = 0.0;
-            double rate = 0.0;
-            double time = 0.0;
-
-            try
-            {
-                principle = int.Parse(tb_principle.Text);
-                rate = int.Parse(tb_interest_rate.Text);
-                time = int.Parse(tb_no_year.Text);
-                double interest_amount = principle * rate * time /100;
-
-                lb_interest_amount.Content = interest_amount.ToString();
-                lb_total_amount.Content = (interest_amount + principle).ToString();
-
-                
-            }
-            catch (Exception){
-
-            }
-        }
-
+        
         private void OnExit(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

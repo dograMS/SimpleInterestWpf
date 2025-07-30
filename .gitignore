@@ -1,0 +1,41 @@
+## Ignore build outputs
+bin/
+obj/
+
+## Ignore Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Ignore ASP.NET temporary files
+_Temporary/
+_ReSharper*/ 
+*.DotSettings.user
+
+## Ignore publish output
+publish/
+**/Properties/PublishProfiles/
+
+## Ignore Web.config transforms (optional)
+Web.Debug.config
+Web.Release.config
+
+## Ignore NuGet packages (if packages are restored)
+packages/
+*.nupkg
+project.lock.json
+project.assets.json
+
+## Ignore logs and temp files
+*.log
+*.tlog
+*.tmp
+
+## Ignore Rider IDE (if used)
+.idea/
+
+## Ignore node/npm-related files (if using frontend tooling)
+n
+

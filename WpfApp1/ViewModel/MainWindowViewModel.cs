@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using WpfApp1.MVVM;
 
 namespace WpfApp1.ViewModel
@@ -16,20 +18,26 @@ namespace WpfApp1.ViewModel
 
         }
 
-        private double principle;
+        private string principle;
 
-        public double Principle
+        public string Principle
         {
             get { return principle; }
             set {
-                principle = value;
+                try
+                {
+                    principle = value;
+                }catch(Exception e)
+                {
+                    principle = "";
+                }
                 OnPropertyChanged();
             }
         }
 
-        private double interest;
+        private string interest;
 
-        public double Interest
+        public string Interest
         {
             get { return interest; }
             set { interest = value;
@@ -37,9 +45,9 @@ namespace WpfApp1.ViewModel
             }
         }
 
-        private double year;
+        private string year;
 
-        public double Year
+        public string Year
         {
             get { return year; }
             set { year = value;
@@ -47,9 +55,9 @@ namespace WpfApp1.ViewModel
             }
         }
 
-        private double interestAmount;
+        private string interestAmount = "-";
 
-        public double InterestAmount
+        public string InterestAmount
         {
             get { return interestAmount; }
             set { interestAmount = value;
@@ -57,9 +65,9 @@ namespace WpfApp1.ViewModel
             }
         }
 
-        private double totalAmount;
+        private string totalAmount = "-";
 
-        public double TotalAmount
+        public string TotalAmount
         {
             get { return totalAmount; }
             set { totalAmount = value;
@@ -79,17 +87,36 @@ namespace WpfApp1.ViewModel
 
         private void CalcAmount()
         {
-            InterestAmount = Principle * Year * Interest / 100;
-            TotalAmount = InterestAmount + Principle;
+           
+            double p = 0.0, r = 0.0, t = 0.0;
+
+            try
+            {
+                p = double.Parse(Principle);
+                r = double.Parse(Year);
+                t = double.Parse(Interest);
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Please Enter Valid Data!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ClearFields();
+                return;
+            }
+
+            InterestAmount = (p * r * t/100).ToString();
+            TotalAmount = (double.Parse(InterestAmount) + double.Parse(Principle)).ToString();
+
+            TotalAmount = "₹" + TotalAmount;
+            InterestAmount = "₹" + InterestAmount;
         }
 
         private void ClearFields()
         {
-            Principle = 0;
-            Year = 0;
-            Interest = 0;
-            InterestAmount = 0;
-            TotalAmount = 0;
+            Principle = "";
+            Year = "";
+            Interest = "";
+            InterestAmount = "-";
+            TotalAmount = "-";
         }
     }
 }
